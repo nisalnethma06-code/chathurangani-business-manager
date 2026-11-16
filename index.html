@@ -3,92 +3,77 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#1558a6">
+  <meta name="theme-color" content="#102b46">
   <meta name="description" content="Chathurangani Business Manager">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="style.css">
   <title>Chathurangani Business Manager</title>
 </head>
 <body>
-<header class="topbar">
-  <div class="brand">
-    <img src="assets/logo.png" alt="Chathurangani Products" onerror="this.style.display='none'">
-    <div><strong>Chathurangani</strong><small>Business Manager</small></div>
-  </div>
-  <div class="top-actions">
-    <button id="langBtn" class="ghost" type="button">English</button>
-    <span id="userEmail" class="user-email"></span>
-    <button id="logoutBtn" class="secondary" type="button" hidden data-i18n="logout">Logout</button>
-  </div>
-</header>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Chathurangani Home">
+      <img src="assets/logo.png" alt="" onerror="this.style.display='none'">
+      <span><strong>Chathurangani</strong><small>BUSINESS MANAGER</small></span>
+    </a>
+    <div class="top-actions">
+      <span id="userEmail" class="user-email"></span>
+      <button id="langBtn" class="btn btn-soft" type="button">English</button>
+      <button id="logoutBtn" class="btn btn-outline" type="button" hidden>Logout</button>
+    </div>
+  </header>
 
-<main>
-  <section id="loginView" class="login-layout">
-    <div class="hero">
-      <img src="assets/business-banner.png" alt="Chathurangani Products" class="hero-image">
-      <span class="eyebrow">BUSINESS CONTROL CENTER</span>
-      <h1 data-i18n="welcome">ඔබේ ව්‍යාපාරය එකම තැනකින්</h1>
-      <p data-i18n="heroText">විකුණුම්, කඩවල්, බෙදාහැරීම් සහ මුදල් කළමනාකරණය කරන්න.</p>
-      <div class="hero-points">
-        <span>✓ <span data-i18n="secureCloud">Cloud data</span></span>
-        <span>✓ <span data-i18n="twoLanguages">සිංහල / English</span></span>
-        <span>✓ <span data-i18n="mobileReady">Mobile friendly</span></span>
+  <main>
+    <section id="loginView" class="auth-layout">
+      <div class="hero">
+        <div class="hero-image-wrap">
+          <img src="assets/business-banner.png" alt="Chathurangani Products" class="hero-image"
+               onerror="this.parentElement.classList.add('no-image')">
+          <span class="image-label">YOUR BUSINESS · ONE PLACE</span>
+        </div>
+        <span class="eyebrow">BUSINESS CONTROL CENTER</span>
+        <h1>ඔබේ ව්‍යාපාරය<br><em>එකම තැනකින්.</em></h1>
+        <p>විකුණුම්, වියදම්, තොග, බෙදාහැරීම් සහ ඉතිරි කිරීම් පහසුවෙන් කළමනාකරණය කරන්න.</p>
+        <div class="hero-points"><span>✓ Cloud records</span><span>✓ Sinhala / English</span><span>✓ Mobile friendly</span></div>
       </div>
-    </div>
-    <form id="loginForm" class="panel login-card">
-      <h2 data-i18n="signIn">ඇතුළු වන්න</h2>
-      <label>Email<input id="email" type="email" autocomplete="username" required></label>
-      <label data-i18n="password">මුරපදය<input id="password" type="password" autocomplete="current-password" required></label>
-      <button class="primary full" type="submit" data-i18n="login">Login</button>
-      <p id="loginMessage" class="message" aria-live="polite"></p>
-      <p class="hint" data-i18n="loginHint">Owner විසින් Firebase Authentication තුළ සකස් කළ ගිණුම භාවිත කරන්න.</p>
-    </form>
 
-<div class="register-section">
-  <h3>සේවක ගිණුමක් සාදන්න</h3>
+      <div class="auth-stack">
+        <form id="loginForm" class="panel auth-card">
+          <span class="eyebrow">WELCOME BACK</span>
+          <h2 data-i18n="signIn">ඇතුළු වන්න</h2>
+          <label>Email<input id="email" type="email" autocomplete="username" required></label>
+          <label data-i18n="password">මුරපදය<input id="password" type="password" autocomplete="current-password" required></label>
+          <button class="btn btn-primary full" type="submit" data-i18n="login">Login</button>
+          <p id="loginMessage" class="message" aria-live="polite"></p>
+          <p class="hint">Owner විසින් සකස් කළ ගිණුමෙන් ඇතුළු වන්න.</p>
+        </form>
 
-  <form id="registerForm">
-    <label>සම්පූර්ණ නම
-      <input id="registerName" type="text" required>
-    </label>
+        <details class="panel register-card">
+          <summary>සේවක ගිණුමක් සාදන්න <span>＋</span></summary>
+          <form id="registerForm" class="form-stack">
+            <label>සම්පූර්ණ නම<input id="registerName" type="text" maxlength="80" required></label>
+            <label>දුරකථන අංකය<input id="registerPhone" type="tel" maxlength="20" required></label>
+            <label>Email<input id="registerEmail" type="email" required></label>
+            <label>Password<input id="registerPassword" type="password" minlength="8" required></label>
+            <label>Password නැවත ඇතුළත් කරන්න<input id="confirmPassword" type="password" minlength="8" required></label>
+            <button class="btn btn-primary full" type="submit">සේවක ගිණුමක් සාදන්න</button>
+            <p id="registerMessage" class="message" aria-live="polite"></p>
+            <p class="hint">ගිණුම Owner අනුමත කරන තුරු ව්‍යාපාර දත්ත බැලිය නොහැක.</p>
+          </form>
+        </details>
+      </div>
+    </section>
 
-    <label>දුරකථන අංකය
-      <input id="registerPhone" type="tel" required>
-    </label>
-
-    <label>Email
-      <input id="registerEmail" type="email" required>
-    </label>
-
-    <label>Password
-      <input id="registerPassword" type="password" minlength="8" required>
-    </label>
-
-    <label>Password නැවත ඇතුළත් කරන්න
-      <input id="confirmPassword" type="password" minlength="8" required>
-    </label>
-
-    <button class="primary full" type="submit">
-      සේවක ගිණුමක් සාදන්න
-    </button>
-
-    <p id="registerMessage" class="message"></p>
-  </form>
-</div>
-
-  </section>
-
-  <section id="appView" hidden>
-    <div class="welcome-row">
-      <div><span class="eyebrow" data-i18n="overview">BUSINESS OVERVIEW</span><h1 data-i18n="dashboard">Dashboard</h1></div>
-      <span id="rolePill" class="role-pill"></span>
-    </div>
-    <nav id="nav" class="nav"></nav>
-    <section id="page" class="page"></section>
-  </section>
-</main>
-<footer>© Chathurangani Products · <span data-i18n="footerText">Business Manager</span></footer>
-<div id="toast" class="toast" role="status"></div>
-<script type="module" src="app.js"></script>
+    <section id="appView" hidden>
+      <div class="welcome-row">
+        <div><span class="eyebrow">BUSINESS OVERVIEW</span><h1 id="pageHeading">Dashboard</h1><p id="todayLabel" class="muted"></p></div>
+        <span id="rolePill" class="role-pill"></span>
+      </div>
+      <nav id="nav" class="nav" aria-label="Main navigation"></nav>
+      <section id="page" class="page" aria-live="polite"></section>
+    </section>
+  </main>
+  <footer>© Chathurangani Products · Business Manager</footer>
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

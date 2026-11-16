@@ -2,8 +2,13 @@
   "name": "Chathurangani Business Manager",
   "short_name": "Chathurangani",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#f3f7fb",
-  "theme_color": "#1558a6",
-  "description": "Business management for Chathurangani Products"
+  "background_color": "#f3f6f9",
+  "theme_color": "#102b46",
+  "description": "Business management for Chathurangani Products",
+  "icons": [
+    {"src":"assets/app-icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"assets/app-icon-512.png","sizes":"512x512","type":"image/png"}
+  ]
 }
