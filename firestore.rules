@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function userDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+    function isOwner() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && userDoc().data.role == 'owner';
+    }
+    function isEmployee() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/users/$(request.auth.uid))
+        && userDoc().data.role == 'employee';
+    }
+    function validRole() {
+      return request.resource.data.role in ['owner', 'employee'];
+    }
+
+    // Role documents are provisioned manually by the project owner in Firebase Console.
+    // No signed-in client may create, update or delete a role document.
+    match /users/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isOwner());
+      allow create, update, delete: if false;
+    }
+
+    match /shops/{id} {
+      allow read: if isOwner() || isEmployee();
+      allow create, update: if isOwner() || isEmployee();
+      allow delete: if isOwner();
+    }
+    match /products/{id} {
+      allow read: if isOwner() || isEmployee();
+      allow create, update: if isOwner();
+      allow delete: if isOwner();
+    }
+    match /deliveries/{id} {
+      allow read: if isOwner() || (isEmployee() && resource.data.assignedTo == request.auth.uid);
+      allow create: if isOwner() || (isEmployee() && request.resource.data.createdBy == request.auth.uid);
+      allow update: if isOwner() || (isEmployee() && resource.data.assignedTo == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','notes','updatedAt']));
+      allow delete: if isOwner();
+    }
+    match /collections/{id} {
+      allow create: if isOwner() || (isEmployee() && request.resource.data.createdBy == request.auth.uid);
+      allow read: if isOwner() || (isEmployee() && resource.data.createdBy == request.auth.uid);
+      allow update, delete: if isOwner();
+    }
+    match /sales/{id} {
+      allow read, write: if isOwner();
+    }
+    match /expenses/{id} {
+      allow read, write: if isOwner();
+    }
+    match /fuelTrips/{id} {
+      allow read, write: if isOwner();
+    }
+    match /livingExpenses/{id} {
+      allow read, write: if isOwner();
+    }
+    match /growthSavings/{id} {
+      allow read, write: if isOwner();
+    }
+    match /emergencySavings/{id} {
+      allow read, write: if isOwner();
+    }
+    match /settings/{id} {
+      allow read, write: if isOwner();
+    }
+  }
+}

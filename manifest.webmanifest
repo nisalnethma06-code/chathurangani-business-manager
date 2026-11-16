@@ -1,0 +1,9 @@
+{
+  "name": "Chathurangani Business Manager",
+  "short_name": "Chathurangani",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f7fb",
+  "theme_color": "#1558a6",
+  "description": "Business management for Chathurangani Products"
+}
